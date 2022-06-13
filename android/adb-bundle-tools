@@ -1,0 +1,25 @@
+alias bundletool='java -jar /opt/bundletool.jar' # Location may vary
+
+# Check https://developer.android.com/studio/command-line/bundletool#generate_apks
+function aab() {
+  if [ "$1" = "install" ]; then
+    local apksName=$(toApksExtension $1);
+    aabextract $1;
+    apksinstall $apksName;
+    rm ${1%%.*}.apks;
+
+  elif [ "$1" == "extract" ]; then
+    local apksName=$(toApksExtension $1);
+    bundletool build-apks --bundle=$1 --output=$apksName
+  fi
+}
+
+function apk() {
+  if [ "$1" = "install" ]; then
+    bundletool install-apks --apks=$1;
+  fi
+}
+
+function toApksExtension() {
+    echo "${1%%.*}.apks";
+}

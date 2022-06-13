@@ -1,0 +1,21 @@
+.goma : Log.d("GOMA", "x: $x")
+    ANY -> android.util.Log.d("GOMA", "$expr$: \$$expr$")
+
+.gomae : Log.e("GOMA", "x: $x")
+    ANY -> android.util.Log.e("GOMA", "$expr$: \$$expr$")
+
+.logd : Log.d(TAG, "x: $x")
+    ANY  →  android.util.Log.d(TAG, "$expr$: \$$expr$")
+
+.loge : Log.d(TAG, "x: $x")
+    ANY  →  android.util.Log.e(TAG, "$expr$: \$$expr$")
+
+.handle : try-catch
+    ANY -> try {\
+        $expr$\
+    } catch (e: Exception) {\
+        $end$\
+    }
+
+.logNull : Adds run() logging if the value is null
+    ANY -> ?: run { android.util.Log.d(TAG, "$expr$ is null") }
