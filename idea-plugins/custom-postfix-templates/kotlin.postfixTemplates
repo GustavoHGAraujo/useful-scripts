@@ -18,4 +18,4 @@
     }
 
 .logNull : Adds run() logging if the value is null
-    ANY -> ?: run { android.util.Log.d(TAG, "$expr$ is null") }
+    ANY -> $expr$ ?: run { android.util.Log.d(TAG, "$expr$ is null") }
